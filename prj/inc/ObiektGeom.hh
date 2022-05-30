@@ -12,7 +12,7 @@ class ObiektGeom {
     std::string   _NazwaObiektu;
     int           _KolorID;
     Wektor3D      _Skala;
-
+    Macierz3D     _MacRotacji;
   
   public:
     Wektor3D      _Polozenie;
@@ -25,8 +25,8 @@ class ObiektGeom {
     const std::string & WezNazwePliku_BrylaRysowana() const
                  { return _NazwaPliku_BrylaRysowana; }
 
-    bool Przelicz_i_Zapisz_Wierzcholki();
-    bool Przelicz_i_Zapisz_Wierzcholki(std::istream &StrmWe, std::ostream &StrmWy);
+    void Przelicz_i_Zapisz_Wierzcholki() const;
+    void Przelicz_i_Zapisz_Wierzcholki(std::istream &StrmWe, std::ostream &StrmWy) const;
 };
 
 

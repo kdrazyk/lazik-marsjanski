@@ -95,26 +95,8 @@ int main()
 
       Ob1.Przelicz_i_Zapisz_Wierzcholki();
       Lacze.Rysuj();
-      Wektor3D::iloscObiektow();
   }
 
 
-  /*
-    cout << "Nacisnij klawisz ENTER, aby FSR wykonal przesuniecie." << endl;
-    cin.ignore(100,'\n');
-
-    Ob1.Przelicz_i_Zapisz_Wierzcholki(20,20,10,20,0,0);
-    Lacze.Rysuj();
-
-    cout << "Nacisnij klawisz ENTER, aby FSR wykonal przesuniecie." << endl;
-    cin.ignore(100,'\n');
-
-    Ob1.Przelicz_i_Zapisz_Wierzcholki(20,20,10,40,0,0);
-    Lacze.Rysuj();
-
-    cout << "Nacisnij klawisz ENTER, aby zakonczyc." << endl;
-    cin.ignore(100,'\n');
-  */
-
-
+  Wektor3D::iloscObiektow();
 }

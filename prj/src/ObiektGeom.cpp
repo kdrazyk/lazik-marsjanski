@@ -30,7 +30,7 @@ ObiektGeom::ObiektGeom( const char*  sNazwaPliku_BrylaWzorcowa,
 
 
 
-bool ObiektGeom::Przelicz_i_Zapisz_Wierzcholki()
+void ObiektGeom::Przelicz_i_Zapisz_Wierzcholki() const
 {
     ifstream  StrmWe(_NazwaPliku_BrylaWzorcowa);
     ofstream  StrmWy(_NazwaPliku_BrylaRysowana);
@@ -40,13 +40,13 @@ bool ObiektGeom::Przelicz_i_Zapisz_Wierzcholki()
              << "    " << _NazwaPliku_BrylaWzorcowa << endl
              << "    " << _NazwaPliku_BrylaRysowana << endl
              << endl;
-        return false;
+        std::exit(-1);
     }
 
-    return this->Przelicz_i_Zapisz_Wierzcholki(StrmWe, StrmWy);
+    this->Przelicz_i_Zapisz_Wierzcholki(StrmWe, StrmWy);
 }
 
-bool ObiektGeom::Przelicz_i_Zapisz_Wierzcholki(std::istream &StrmWe, std::ostream &StrmWy)
+void ObiektGeom::Przelicz_i_Zapisz_Wierzcholki(std::istream &StrmWe, std::ostream &StrmWy) const
 {
     Wektor3D wspolrzedne;
     int Indeks_Wiersza = 0;
@@ -54,7 +54,7 @@ bool ObiektGeom::Przelicz_i_Zapisz_Wierzcholki(std::istream &StrmWe, std::ostrea
 
     StrmWe >> wspolrzedne;
 
-    if (StrmWe.fail()) return false;
+    if (StrmWe.fail()) std::exit(-1);
 
     do {
         i=0;
@@ -73,7 +73,7 @@ bool ObiektGeom::Przelicz_i_Zapisz_Wierzcholki(std::istream &StrmWe, std::ostrea
         StrmWe >> wspolrzedne;
     } while (!StrmWe.fail());
 
-    if (!StrmWe.eof()) return false;
+    if (!StrmWe.eof()) std::exit(-1);
 
-    return Indeks_Wiersza == 0 && !StrmWy.fail();
+    if (!(Indeks_Wiersza == 0 && !StrmWy.fail())) std::exit(-1);
 }
