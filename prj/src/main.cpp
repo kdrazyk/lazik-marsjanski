@@ -79,6 +79,8 @@ int main()
   cout << endl << "Start programu gnuplot" << endl << endl;
   Lacze.Rysuj();
 
+  Wektor3D::iloscObiektow();
+
   while(1) {
       x = y = 0;
       cout << "Przesuniecie X: ";
@@ -93,6 +95,7 @@ int main()
 
       Ob1.Przelicz_i_Zapisz_Wierzcholki();
       Lacze.Rysuj();
+      Wektor3D::iloscObiektow();
   }
 
 

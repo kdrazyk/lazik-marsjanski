@@ -12,18 +12,20 @@ using namespace std;
 template <typename T, int Rozmiar>
 class wektor {
 private:
+    inline static int _AktualnaIlosc;
+    inline static int _LacznaIlosc;
     T _wsp[Rozmiar];
 
 public:
-    wektor() {for (T &wsp: _wsp) wsp = 0;};
+    wektor();
+    ~wektor();
 
     const T & operator[] (int el) const {return this->_wsp[el];}
     T & operator[] (int el) {return this->_wsp[el];}
     void add(int x, T y) {_wsp[x] += y;}
     T iloczynSkalarny(const wektor<T, Rozmiar> &wek2) const;
     double dlugosc();
-    bool begin(){return 0;}
-    bool end(){return 1;}
+    static void iloscObiektow();
 
     wektor<T,Rozmiar> operator + (const wektor<T, Rozmiar> &wektor2) const;
     wektor<T,Rozmiar> operator - (const wektor<T, Rozmiar> &wektor2) const;
@@ -31,6 +33,23 @@ public:
     wektor<T,Rozmiar> operator / (T liczba) const;
 };
 
+template <typename T, int Rozmiar>
+wektor<T,Rozmiar>::wektor() {
+    for (T &wsp: _wsp) wsp = 0;
+    ++_AktualnaIlosc;
+    ++_LacznaIlosc;
+}
+
+template <typename T, int Rozmiar>
+wektor<T,Rozmiar>::~wektor() {
+    --_AktualnaIlosc;
+}
+
+template <typename T, int Rozmiar>
+void wektor<T,Rozmiar>::iloscObiektow() {
+    cout << "Aktualna ilosc obiektow klasy wektor: " << _AktualnaIlosc << endl
+         << "Laczna ilosc obiektow klasy wektor: "   << _LacznaIlosc   << endl;
+}
 
 
 

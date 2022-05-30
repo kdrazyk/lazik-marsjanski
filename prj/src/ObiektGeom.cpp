@@ -6,6 +6,9 @@
 
 using namespace std;
 
+
+
+
 ObiektGeom::ObiektGeom( const char*  sNazwaPliku_BrylaWzorcowa,
                         const char*  sNazwaObiektu,
                         int          KolorID
@@ -40,6 +43,11 @@ bool ObiektGeom::Przelicz_i_Zapisz_Wierzcholki()
         return false;
     }
 
+    return this->Przelicz_i_Zapisz_Wierzcholki(StrmWe, StrmWy);
+}
+
+bool ObiektGeom::Przelicz_i_Zapisz_Wierzcholki(std::istream &StrmWe, std::ostream &StrmWy)
+{
     Wektor3D wspolrzedne;
     int Indeks_Wiersza = 0;
     int i=0;
@@ -47,15 +55,16 @@ bool ObiektGeom::Przelicz_i_Zapisz_Wierzcholki()
     StrmWe >> wspolrzedne;
 
     if (StrmWe.fail()) return false;
-  
+
     do {
         i=0;
+
         for (i=0; i<3; ++i)
-            wspolrzedne[i] = wspolrzedne[i] * this->_Skala[i] + this->_Polozenie[i];
+            wspolrzedne[i] = wspolrzedne[i] * this->_Skala[i] /*macierz rotacji*/ + this->_Polozenie[i];
 
         StrmWy << wspolrzedne[0] << " " << wspolrzedne[1] << " " << wspolrzedne[2] << endl;
         ++Indeks_Wiersza;
-    
+
         if (Indeks_Wiersza >= 4) {
             StrmWy << endl;
             Indeks_Wiersza = 0;
@@ -65,6 +74,6 @@ bool ObiektGeom::Przelicz_i_Zapisz_Wierzcholki()
     } while (!StrmWe.fail());
 
     if (!StrmWe.eof()) return false;
-  
+
     return Indeks_Wiersza == 0 && !StrmWy.fail();
 }

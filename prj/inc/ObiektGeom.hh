@@ -26,6 +26,7 @@ class ObiektGeom {
                  { return _NazwaPliku_BrylaRysowana; }
 
     bool Przelicz_i_Zapisz_Wierzcholki();
+    bool Przelicz_i_Zapisz_Wierzcholki(std::istream &StrmWe, std::ostream &StrmWy);
 };
 
 
