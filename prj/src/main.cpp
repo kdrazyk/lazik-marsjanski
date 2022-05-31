@@ -2,7 +2,7 @@
 #include <fstream>
 #include "lacze_do_gnuplota.hh"
 #include "PowierzchniaMarsa.hh"
-#include "ObiektGeom.hh"
+#include "Lazik.hh"
 #include "Kolory.hh"
 
 
@@ -30,7 +30,7 @@ void Inicjalizuj_Lacze(PzG::LaczeDoGNUPlota  &rLacze)
   rLacze.Inicjalizuj();  // Tutaj startuje gnuplot.
 }
 
-void DodajDoListyRysowania(PzG::LaczeDoGNUPlota &rLacze, const ObiektGeom  &rOb)
+void DodajDoListyRysowania(PzG::LaczeDoGNUPlota &rLacze, const Lazik  &rOb)
 {
   PzG::InfoPlikuDoRysowania *wInfoPliku;
   
@@ -49,16 +49,15 @@ int main()
   Inicjalizuj_Lacze(Lacze);
   if (!Inicjalizuj_PowierzchnieMarsa(Lacze)) return 1;
 
-  ObiektGeom  Ob1("bryly_wzorcowe/szescian3.dat","FSR",Kolor_JasnoNiebieski);
-  ObiektGeom  Ob2("bryly_wzorcowe/szescian3.dat","Perseverance",Kolor_Czerwony);
-  ObiektGeom  Ob3("bryly_wzorcowe/szescian3.dat","Curiosity",Kolor_Czerwony);  
+  Lazik  Ob1("bryly_wzorcowe/szescian3.dat","FSR",Kolor_JasnoNiebieski);
+  Lazik  Ob2("bryly_wzorcowe/szescian3.dat","Perseverance",Kolor_Czerwony);
+  Lazik  Ob3("bryly_wzorcowe/szescian3.dat","Curiosity",Kolor_Czerwony);
 
   double x,y;
 
   DodajDoListyRysowania(Lacze,Ob1);
   DodajDoListyRysowania(Lacze,Ob2);
   DodajDoListyRysowania(Lacze,Ob3);
-
 
   Ob1._Polozenie[0] = 0;
   Ob1._Polozenie[1] = 0;
@@ -83,17 +82,17 @@ int main()
 
   while(1) {
       x = y = 0;
-      cout << "Przesuniecie X: ";
+      cout << "Przemieszczenie: ";
       cin >> x;
-      cout << "Przesuniecie Y: ";
+      cout << "Obrot: ";
       cin >> y;
-      Ob1._Polozenie[0] += x;
-      Ob1._Polozenie[1] += y;
+      Ob1.przemiesc(x);
+      Ob1.obroc(y);
 
 
 
 
-      Ob1.Przelicz_i_Zapisz_Wierzcholki();
+      //Ob1.Przelicz_i_Zapisz_Wierzcholki();
       Lacze.Rysuj();
   }
 
