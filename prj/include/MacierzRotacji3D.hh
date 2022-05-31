@@ -1,3 +1,5 @@
+#ifndef MACIERZROTACJI3D_HH
+#define MACIERZROTACJI3D_HH
 #include <iostream>
 #include <cmath>
 #include "macierz.hh"
@@ -43,3 +45,5 @@ void MacierzRotacji3D::obrotOZ(double kat)
     _kol[1][0] = std::sin(kat);
     _kol[0][1] = -_kol[1][0];
 }
+
+#endif

@@ -1,8 +1,11 @@
 #ifndef OBIEKTGEOM_HH
 #define OBIEKTGEOM_HH
 
+#include <iostream>
+#include <fstream>
 #include <string>
-#include "definicje.hh"
+#include "Wektor3D.hh"
+//#include "MacierzRotacji3D.hh"
 
 #define NAZWA_KARTOTEKI_PLIKOW_DO_RYSOWANIA    "pliki_do_rysowania"
 
@@ -12,10 +15,11 @@ class ObiektGeom {
     std::string   _NazwaObiektu;
     int           _KolorID;
     Wektor3D      _Skala;
-    Macierz3D     _MacRotacji;
+
   
   public:
     Wektor3D      _Polozenie;
+    double        _katObrotu;
     ObiektGeom(const char* sNazwaPliku_BrylaWzorcowa, const char* sNazwaObiektu, int KolorID);
 
     int WezKolorID() const { return _KolorID; }

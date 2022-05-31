@@ -7,7 +7,7 @@
 using namespace std;
 
 #define SZEROKOSC 6
-#define PRECYZJA 1
+#define PRECYZJA  1
 
 template <typename T, int Rozmiar>
 class wektor {

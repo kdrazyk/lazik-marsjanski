@@ -1,5 +1,3 @@
-#include <iostream>
-#include <fstream>
 #include "ObiektGeom.hh"
 
 
@@ -49,18 +47,20 @@ void ObiektGeom::Przelicz_i_Zapisz_Wierzcholki() const
 void ObiektGeom::Przelicz_i_Zapisz_Wierzcholki(std::istream &StrmWe, std::ostream &StrmWy) const
 {
     Wektor3D wspolrzedne;
+ //   MacierzRotacji3D mac;
     int Indeks_Wiersza = 0;
     int i=0;
-
+//    mac.obrotOZ(2);
     StrmWe >> wspolrzedne;
 
     if (StrmWe.fail()) std::exit(-1);
 
     do {
-        i=0;
 
+        i=0;
         for (i=0; i<3; ++i)
-            wspolrzedne[i] = wspolrzedne[i] * this->_Skala[i] /*macierz rotacji*/ + this->_Polozenie[i];
+            wspolrzedne[i] = wspolrzedne[i] * this->_Skala[i];// /*macierz rotacji*/ + this->_Polozenie[i];
+        wspolrzedne = wspolrzedne+_Polozenie;
 
         StrmWy << wspolrzedne[0] << " " << wspolrzedne[1] << " " << wspolrzedne[2] << endl;
         ++Indeks_Wiersza;

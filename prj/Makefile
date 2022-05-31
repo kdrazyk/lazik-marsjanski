@@ -1,52 +1,31 @@
-OUTPUT :=sterowanie-lazikiem
+SRC_DIR := src
+OBJ_DIR := obj
+BIN_DIR := bin
 
-#*.hh dir
-IDIR :=inc
-#*.o dir
-ODIR :=obj
-#*.cpp dir
-SDIR :=src
+EXE := $(BIN_DIR)/sterowanie-lazikiem
+SRC := $(wildcard $(SRC_DIR)/*.cpp)
+OBJ := $(SRC:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
 
-CC :=g++
-CFLAGS :=-I$(IDIR) -W -Wall -pedantic
+CXXFLAGS := -MMD -MP
+CFLAGS   := -Wall -pedantic -Iinclude
+LDFLAGS  := -Llib
+LDLIBS   := -lm
 
-#*.hh
-_DEPS := ObiektGeom.hh PowierzchniaMarsa.hh lacze_do_gnuplota.hh Kolory.hh Lazik.hh MacierzRotacji3D.hh definicje.hh macierz.hh wektor.hh
-DEPS := $(patsubst %,$(IDIR)/%,$(_DEPS))
+.PHONY: all clean start
 
-#*.o
-_OBJ := main.o ObiektGeom.o PowierzchniaMarsa.o lacze_do_gnuplota.o Lazik.o
-OBJ := $(patsubst %,$(ODIR)/%,$(_OBJ))
+all: $(EXE)
+	$(EXE)
 
-__start__: obj dat  pliki_do_rysowania ./${OUTPUT}
-	rm -f core.* core; ./${OUTPUT}
+$(EXE): $(OBJ) | $(BIN_DIR)
+	$(CXX) $(LDFLAGS) $^ $(LDLIBS) -o $@
 
-obj:
-	mkdir obj
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp | $(OBJ_DIR)
+	$(CXX) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
-dat:
-	mkdir dat
-
-pliki_do_rysowania:
-	mkdir pliki_do_rysowania
-
-
-$(ODIR)/%.o: $(SDIR)/%.cpp $(DEPS)
-	$(CC) -c -o $@ $< $(CFLAGS)
-
-$(OUTPUT): $(OBJ)
-	$(CC) -o $@ $^ $(CFLAGS)
-
-.PHONY: clean
+$(BIN_DIR) $(OBJ_DIR):
+	mkdir -p $@
 
 clean:
-	rm -f obj/* ./${OUTPUT} core.* core liki_do_rysowania/*
+	@$(RM) -rv $(BIN_DIR) $(OBJ_DIR)
 
-
-
-help:
-	@echo
-	@echo " make        - tworzenie i uruchomienie aplikacji"
-	@echo " make clean  - usuniecie produktow kompilacji i konsolidacji"
-	@echo " make help   - wyswietla niniejsza informacje"
-	@echo
+-include $(OBJ:.o=.d)
