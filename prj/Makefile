@@ -1,11 +1,26 @@
-APP=sterowanie-lazikiem
+OUTPUT :=sterowanie-lazikiem
 
+#*.hh dir
+IDIR :=inc
+#*.o dir
+ODIR :=obj
+#*.cpp dir
+SDIR :=src
 
-__start__: obj dat  pliki_do_rysowania ./${APP}
-	rm -f core.* core; ./${APP}
+CC :=g++
+CFLAGS :=-I$(IDIR) -W -Wall -pedantic
 
-# Tworzy katalog "obj" gdy go nie ma
-# 
+#*.hh
+_DEPS := ObiektGeom.hh PowierzchniaMarsa.hh lacze_do_gnuplota.hh Kolory.hh Lazik.hh MacierzRotacji3D.hh definicje.hh macierz.hh wektor.hh
+DEPS := $(patsubst %,$(IDIR)/%,$(_DEPS))
+
+#*.o
+_OBJ := main.o ObiektGeom.o PowierzchniaMarsa.o lacze_do_gnuplota.o Lazik.o
+OBJ := $(patsubst %,$(ODIR)/%,$(_OBJ))
+
+__start__: obj dat  pliki_do_rysowania ./${OUTPUT}
+	rm -f core.* core; ./${OUTPUT}
+
 obj:
 	mkdir obj
 
@@ -16,29 +31,16 @@ pliki_do_rysowania:
 	mkdir pliki_do_rysowania
 
 
-./${APP}: obj/main.o obj/lacze_do_gnuplota.o obj/PowierzchniaMarsa.o obj/ObiektGeom.o
-	g++ -o ./${APP} obj/main.o obj/lacze_do_gnuplota.o obj/PowierzchniaMarsa.o\
-                        obj/ObiektGeom.o
+$(ODIR)/%.o: $(SDIR)/%.cpp $(DEPS)
+	$(CC) -c -o $@ $< $(CFLAGS)
 
+$(OUTPUT): $(OBJ)
+	$(CC) -o $@ $^ $(CFLAGS)
 
-obj/main.o: src/main.cpp inc/lacze_do_gnuplota.hh inc/ObiektGeom.hh inc/PowierzchniaMarsa.hh\
-            inc/Kolory.hh
-	g++  -Iinc -W -Wall -pedantic -c -o obj/main.o src/main.cpp
-
-obj/lacze_do_gnuplota.o: src/lacze_do_gnuplota.cpp inc/lacze_do_gnuplota.hh
-	g++  -Iinc -W -Wall -pedantic -c -o obj/lacze_do_gnuplota.o src/lacze_do_gnuplota.cpp
-
-obj/PowierzchniaMarsa.o: src/PowierzchniaMarsa.cpp inc/PowierzchniaMarsa.hh inc/lacze_do_gnuplota.hh
-	g++  -Iinc -W -Wall -pedantic -c -o obj/PowierzchniaMarsa.o src/PowierzchniaMarsa.cpp
-
-obj/ObiektGeom.o: src/ObiektGeom.cpp inc/ObiektGeom.hh inc/lacze_do_gnuplota.hh
-	g++  -Iinc -W -Wall -pedantic -c -o obj/ObiektGeom.o src/ObiektGeom.cpp
-
-
-#definicje.hh gdzies?
+.PHONY: clean
 
 clean:
-	rm -f obj/* ./${APP} core.* core liki_do_rysowania/*
+	rm -f obj/* ./${OUTPUT} core.* core liki_do_rysowania/*
 
 
 

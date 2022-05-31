@@ -10,7 +10,7 @@ using namespace std;
 
 template<typename T, int Rozmiar>
 class macierz {
-private:
+protected:
     wektor<T,Rozmiar> _kol[Rozmiar];
 
 public:
