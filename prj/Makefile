@@ -11,7 +11,7 @@ CFLAGS   := -Wall -pedantic -Iinclude
 LDFLAGS  := -Llib
 LDLIBS   := -lm
 
-.PHONY: all clean start
+.PHONY: all clean
 
 all: $(EXE)
 	$(EXE)

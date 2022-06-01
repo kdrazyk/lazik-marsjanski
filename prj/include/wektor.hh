@@ -65,12 +65,16 @@ istream & operator >> (istream &istr, wektor<T,Rozmiar> &wek)
 template <typename T, int Rozmiar>
 ostream & operator << (ostream &ostr, const wektor<T,Rozmiar> &wek)
 {
+    int precyzja = ostr.precision();
     ostr << "[";
     for (int i=0; i < Rozmiar; ++i) {
-        ostr  << scientific << setprecision(PRECYZJA) << wek[i];
+        //ostr  << scientific << setprecision(PRECYZJA) << wek[i];
+        ostr   << fixed << setprecision(PRECYZJA) << wek[i];
         ostr << (i==Rozmiar-1 ? "" : ",");
     }
     ostr << "]";
+    ostr.precision(precyzja);
+    ostr << defaultfloat;
     return ostr;
 }
 

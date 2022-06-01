@@ -10,6 +10,7 @@ MacierzRotacji3D::MacierzRotacji3D()
 
 void MacierzRotacji3D::obrotOX(double kat)
 {
+    kat = (kat*M_PI)/180; //stopnie -> radiany
     _kol[1][1] =  std::cos(kat);
     _kol[2][2] = _kol[1][1];
     _kol[2][1] = std::sin(kat);
@@ -18,6 +19,7 @@ void MacierzRotacji3D::obrotOX(double kat)
 
 void MacierzRotacji3D::obrotOY(double kat)
 {
+    kat = (kat*M_PI)/180; //stopnie -> radiany
     _kol[0][0] =  std::cos(kat);
     _kol[2][2] = _kol[0][0];
     _kol[2][0] = std::sin(kat);
@@ -26,6 +28,7 @@ void MacierzRotacji3D::obrotOY(double kat)
 
 void MacierzRotacji3D::obrotOZ(double kat)
 {
+    kat = (kat*M_PI)/180; //stopnie -> radiany
     _kol[0][0] =  std::cos(kat);
     _kol[1][1] = _kol[0][0];
     _kol[1][0] = std::sin(kat);

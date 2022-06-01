@@ -24,3 +24,12 @@ void Lazik::przemiesc(double odleglosc)
     _Polozenie = _Polozenie + kierunek * odleglosc;
     this->Przelicz_i_Zapisz_Wierzcholki();
 }
+
+void Lazik::informacje() const
+{
+    int odstep = 20;
+    cout << setw(odstep) << "Nazwa: " <<  _NazwaObiektu << endl
+         << setw(odstep) <<"Polozenie [x,y,z]: " << _Polozenie << endl
+         << setw(odstep) <<"Orientacja [st]: " << _KatOrientacji << endl
+         << endl;
+}

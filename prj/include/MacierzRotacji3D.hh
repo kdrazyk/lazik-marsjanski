@@ -1,6 +1,7 @@
 #ifndef MACIERZROTACJI3D_HH
 #define MACIERZROTACJI3D_HH
 
+#define _USE_MATH_DEFINES
 #include <iostream>
 #include <cmath>
 #include "macierz.hh"
