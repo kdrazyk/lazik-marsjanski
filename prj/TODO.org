@@ -1,0 +1,49 @@
+#+TITLE: TODO - łazik marsjański
+
+[[https://eportal.pwr.edu.pl/course/view.php?id=21383][ePortal: Programowanie obiektowe]]
+
+* TODO Dodać panią na githubie
+* Wykłady
+** [[/home/kacper/Documents/Studia/Projekt PO/Wykłady/kpo-wyklad-01.pdf][Wykład  1: Organizacja kursu, paradygmaty, ogólnie o C i C++]]
+** [[/home/kacper/Documents/Studia/Projekt PO/Wykłady/kpo-wyklad-02.pdf][Wykład  2: Podejście obiektowe, przeciążenia operatorów, referencje]]
+** [[/home/kacper/Documents/Studia/Projekt PO/Wykłady/kpo-wyklad-03.pdf][Wykład  3: Pojęcie klasy, zwracanie przez referencję, przeciążanie operatorów strumieniowych]]
+** [[/home/kacper/Documents/Studia/Projekt PO/Wykłady/kpo-wyklad-04.pdf][Wykład  4: Od funkcji do metody, od struktury do klasy]]
+** [[/home/kacper/Documents/Studia/Projekt PO/Wykłady/kpo-wyklad-05.pdf][Wykład  5  Rozwijanie w linii, konstruktory, destruktory, hermetyzacja]]
+** [[/home/kacper/Documents/Studia/Projekt PO/Wykłady/kpo-wyklad-06.pdf][Wykład  6: Wartości domyślne, niejawne konwersje,  hermetyzacja, Doxygen]]
+** [[/home/kacper/Documents/Studia/Projekt PO/Wykłady/kpo-wyklad-07.pdf][Wykład  7: STL, pola i metody statyczne, dziedziczenie]]
+** [[/home/kacper/Documents/Studia/Projekt PO/Wykłady/kpo-wyklad-08.pdf][Wykład  8: Diagramy UML, przykład problemu kolizji, konstruktory i destruktory]]
+** [[/home/kacper/Documents/Studia/Projekt PO/Wykłady/kpo-wyklad-09.pdf][Wykład  9: Konstruktor kopiujący; Elementy grafiki komputerowej]]
+** [[/home/kacper/Documents/Studia/Projekt PO/Wykłady/kpo-wyklad-10.pdf][Wykład 10: Kontenery; iteratory; wskaźniki współdzielone]]
+** [[/home/kacper/Documents/Studia/Projekt PO/Wykłady/kpo-wyklad-11.pdf][Wykład 11: Rzutowanie w górę i w dół, wstęp do polimorfizmu]]
+** [[/home/kacper/Documents/Studia/Projekt PO/Wykłady/kpo-wyklad-12.pdf][Wykład 12: List niejednorodne, wskaźniki współdzielone (inteligentne), operatory rzutowania]]
+* Faza 1
+[[../../zad6-faza1.pdf][Instrukcja]]
+[[../../dia.pdf][Instrukcja Dia]]
+
+** Punkt 14
+*** COMMENT
+Dodajemy w obiekcie klasy Scena listę obiektów geometrycznych z wykorzystaniem wskaźników współdzielonych.
+
+** Punkt 15
+*** COMMENT
+Korzystnym jest umieszczenie w klasie Scena obiektu klasy LaczeDoGNUPlota. Teraz usuwamy obiekt tej klasy z funkcji main() i posługujemy się poprzez zdefiniowanie odpowiednich metod w klasie Scena.
+
+** Punkt 16
+*** COMMENT
+Wykorzystując mechanizm rzutowania w górę umieszczamy na tej liście wszystkie łaziki. Należy to zrobić w konstruktorze klasy Scena. Jeśli mamy zintegrowany z tą klasą obiekt klasy LaczeDoGNUPlota to wywołujmy metody inicjalizujące łącze oraz dodajemy nazwy plików, do których będą zapisywane wierzchołki poszczególnych łazików.
+Uruchamiamy też ich obliczenie i zapis (wywołanie metod
+ObiektGeom::Przelicz_i_Zapisz_Wierzcholki()). W funkcji main() wywołujemy metodę rysowania, aby ukazał się obraz wszystkich łazików.
+
+** Punkt 17
+*** COMMENT
+Definiujemy metodę selekcji łazika i testujemy ją.
+
+** Punkt 18
+*** COMMENT
+Gdy mamy to wszystko, dopiero teraz definiujemy interfejs użytkownika. Definiujemy i
+implementujemy menu oraz obsługę poszczególnych opcji. Implementujmy je po kolei i
+testujemy. Dopiero po przetestowaniu i usunięciu błędów przechodzimy do następnej.
+
+
+* Faza 2
+[[../../zad6-faza2.pdf][Instrukcja]]
