@@ -2,7 +2,7 @@
 
 [[https://eportal.pwr.edu.pl/course/view.php?id=21383][ePortal: Programowanie obiektowe]]
 
-* TODO Dodać panią na githubie
+* DONE Dodać panią na githubie
 * Wykłady
 ** [[/home/kacper/Documents/Studia/Projekt PO/Wykłady/kpo-wyklad-01.pdf][Wykład  1: Organizacja kursu, paradygmaty, ogólnie o C i C++]]
 ** [[/home/kacper/Documents/Studia/Projekt PO/Wykłady/kpo-wyklad-02.pdf][Wykład  2: Podejście obiektowe, przeciążenia operatorów, referencje]]
@@ -20,11 +20,11 @@
 [[../../zad6-faza1.pdf][Instrukcja]]
 [[../../dia.pdf][Instrukcja Dia]]
 
-** Punkt 14
+** DONE Punkt 14
 *** COMMENT
 Dodajemy w obiekcie klasy Scena listę obiektów geometrycznych z wykorzystaniem wskaźników współdzielonych.
 
-** Punkt 15
+** DONE Punkt 15
 *** COMMENT
 Korzystnym jest umieszczenie w klasie Scena obiektu klasy LaczeDoGNUPlota. Teraz usuwamy obiekt tej klasy z funkcji main() i posługujemy się poprzez zdefiniowanie odpowiednich metod w klasie Scena.
 
@@ -34,6 +34,7 @@ Wykorzystując mechanizm rzutowania w górę umieszczamy na tej liście wszystki
 Uruchamiamy też ich obliczenie i zapis (wywołanie metod
 ObiektGeom::Przelicz_i_Zapisz_Wierzcholki()). W funkcji main() wywołujemy metodę rysowania, aby ukazał się obraz wszystkich łazików.
 
+Naprawić obiekty prywatne w scenie.
 ** Punkt 17
 *** COMMENT
 Definiujemy metodę selekcji łazika i testujemy ją.
@@ -43,7 +44,6 @@ Definiujemy metodę selekcji łazika i testujemy ją.
 Gdy mamy to wszystko, dopiero teraz definiujemy interfejs użytkownika. Definiujemy i
 implementujemy menu oraz obsługę poszczególnych opcji. Implementujmy je po kolei i
 testujemy. Dopiero po przetestowaniu i usunięciu błędów przechodzimy do następnej.
-
 
 * Faza 2
 [[../../zad6-faza2.pdf][Instrukcja]]
