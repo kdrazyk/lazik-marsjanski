@@ -1,43 +1,119 @@
 #include <iostream>
-#include <fstream>
-#include <cstdlib>
-#include "PowierzchniaMarsa.hh"
 #include "Scena.hh"
 #include "Kolory.hh"
 
 using namespace std;
 
-void exiting(){ Wektor3D::iloscObiektow(); }
-
-
-int main()
+void Inicjalizuj_Laziki(Scena &scena)
 {
-    Scena  scena;
-    double x,y;
-
-    std::atexit(exiting);
-    if (!Inicjalizuj_PowierzchnieMarsa(scena.Lacze)) return 1;
-
     scena.dodajLazik("bryly_wzorcowe/szescian3.dat","FSR"         ,Kolor_JasnoNiebieski,  0,  0, 0);
     scena.dodajLazik("bryly_wzorcowe/szescian3.dat","Perseverance",Kolor_Czerwony      , 60, 60, 0);
     scena.dodajLazik("bryly_wzorcowe/szescian3.dat","Curiosity"   ,Kolor_Czerwony      ,-20, 70, 0);
+}
 
-    cout << endl << "Start programu gnuplot" << endl << endl;
-    scena.Lacze.Rysuj();
 
-    Wektor3D::iloscObiektow();
+namespace menu {
+    void jazda_na_wprost(Scena &scena)
+    {
+        double odleglosc;
+        cout << "Podaj odleglosc, na ktora ma sie przemiescic lazik (w jednostkach sceny)." << endl
+             << "Odleglosc: ";
+        cin >> odleglosc;
+        scena.przemiesc(odleglosc);
+    }
 
-    while(1) {
-        x = y = 0;
-        cout << "Przemieszczenie: ";
-        cin >> x;
-        if (x==999) break;
-        cout << "Obrot: ";
-        cin >> y;
-        scena._AktywnyLazik->przemiesc(x);
-        scena._AktywnyLazik->obroc(y);
-        scena._AktywnyLazik->informacje();
-        scena.Lacze.Rysuj();
+    void zmien_orientacje(Scena &scena)
+    {
+        double kat;
+        cout << "Podaj kat obrotu w stopniach." << endl
+             << "Wartosc kata: ";
+        cin >> kat;
+        scena.obroc(kat);
+    }
+
+    void wybor_lazika(Scena &scena)
+    {
+        //scena.dostepneLaziki();
+
+    }
+
+    void wyswietl_menu(Scena &scena)
+    {
+        cout << endl<< "Aktywny lazik" << endl;
+        scena.informacje();
+        cout << "j - jazda na wprost" << endl
+             << "o - zmien orientacje" << endl
+             << "w - wybor lazika" << endl
+             << "m - wyswietl menu" << endl
+             << "k - koniec dzialania programu" << endl << endl;
+
         Wektor3D::iloscObiektow();
     }
+
+    void wyjscie(bool &koniec)
+    {
+        cout << "Koniec programu" << endl << endl;
+        koniec = true;
+    }
+
+    void bledna_opcja()
+    {
+        cout << "Nieznana opcja" << endl;
+        cin.ignore(1000, '\n');
+    }
+
+    void menu(Scena &scena)
+    {
+        bool koniec = false;
+        char opcja;
+        do {
+            wyswietl_menu(scena);
+
+            cout << "Twoj wybor: ";
+            cin >> opcja;
+
+            switch(opcja) {
+            case 'j': jazda_na_wprost(scena);  break;
+            case 'o': zmien_orientacje(scena); break;
+            case 'w': wybor_lazika(scena);     break;
+            case 'm': wyswietl_menu(scena);    break;
+            case 'k': wyjscie(koniec);         break;
+            default:  bledna_opcja();
+            }
+
+        } while(!koniec);
+    }
 }
+
+int main()
+{
+    {
+        Scena mars;
+
+        Inicjalizuj_Laziki(mars);
+
+        menu::menu(mars);
+    }
+    Wektor3D::iloscObiektow();
+}
+
+
+
+
+//    return menu::menu(mars);
+
+
+    //Wektor3D::iloscObiektow();
+    // while(1) {
+    //     x = y = 0;
+    //     cout << "Przemieszczenie: ";
+    //     cin >> x;
+    //     if (x==999) break;
+    //     cout << "Obrot: ";
+    //     cin >> y;
+    //     mars._AktywnyLazik->przemiesc(x);
+    //     mars._AktywnyLazik->obroc(y);
+    //     mars._AktywnyLazik->informacje();
+    //     mars.Lacze.Rysuj();
+    //     Wektor3D::iloscObiektow();
+    // }
