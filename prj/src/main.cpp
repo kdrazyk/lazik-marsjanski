@@ -6,9 +6,9 @@ using namespace std;
 
 void Inicjalizuj_Laziki(Scena &scena)
 {
-    scena.dodajLazik("bryly_wzorcowe/szescian3.dat","FSR"         ,Kolor_JasnoNiebieski,  0,  0, 0);
-    scena.dodajLazik("bryly_wzorcowe/szescian3.dat","Perseverance",Kolor_Czerwony      , 60, 60, 0);
-    scena.dodajLazik("bryly_wzorcowe/szescian3.dat","Curiosity"   ,Kolor_Czerwony      ,-20, 70, 0);
+    scena.dodajLazik("bryly_wzorcowe/szescian3.dat","FSR"         ,  0,  0, 0);
+    scena.dodajLazik("bryly_wzorcowe/szescian3.dat","Perseverance", 60, 60, 0);
+    scena.dodajLazik("bryly_wzorcowe/szescian3.dat","Curiosity"   ,-20, 70, 0);
 }
 
 
@@ -33,8 +33,11 @@ namespace menu {
 
     void wybor_lazika(Scena &scena)
     {
-        //scena.dostepneLaziki();
-
+        int numer;
+        scena.dostepneLaziki();
+        cout << "Podaj numer lazika > ";
+        cin >> numer;
+        scena.zmienAktywnyLazik(numer);
     }
 
     void wyswietl_menu(Scena &scena)
@@ -98,22 +101,3 @@ int main()
 }
 
 
-
-
-//    return menu::menu(mars);
-
-
-    //Wektor3D::iloscObiektow();
-    // while(1) {
-    //     x = y = 0;
-    //     cout << "Przemieszczenie: ";
-    //     cin >> x;
-    //     if (x==999) break;
-    //     cout << "Obrot: ";
-    //     cin >> y;
-    //     mars._AktywnyLazik->przemiesc(x);
-    //     mars._AktywnyLazik->obroc(y);
-    //     mars._AktywnyLazik->informacje();
-    //     mars.Lacze.Rysuj();
-    //     Wektor3D::iloscObiektow();
-    // }

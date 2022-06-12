@@ -12,19 +12,20 @@ void Scena::Inicjalizuj_Lacze()
     Lacze.Inicjalizuj();  // Tutaj startuje gnuplot.
 }
 
-void Scena::DodajDoListyRysowania(const Lazik  &rOb)
+void Scena::DodajDoListyRysowania(std::shared_ptr<ObiektGeom> rOb)
 {
     PzG::InfoPlikuDoRysowania *wInfoPliku;
-    wInfoPliku = &Lacze.DodajNazwePliku(rOb.WezNazwePliku_BrylaRysowana());
-    wInfoPliku->ZmienKolor(rOb.WezKolorID());
+    wInfoPliku = &Lacze.DodajNazwePliku(rOb->WezNazwePliku_BrylaRysowana());
+    wInfoPliku->ZmienKolor(rOb->WezKolorID());
 }
 
-// void Scena::dodajElementDoListy(std::shared_ptr<ObiektGeom> &el, Obiekty typ)
-// {
-//     if (_ObiektySceny.empty())
-//         _ObiektySceny[MAKS_ILOSC_OBIEKTOW * typ] = el;
-
-// }
+int Scena::dodajElementDoListy(std::shared_ptr<ObiektGeom> el, Obiekt typ)
+{
+    int i;
+    for (i=MAKS_ILOSC_OBIEKTOW * typ; _ObiektySceny.count(i); ++i);
+    _ObiektySceny.emplace(i,el);
+    return i;
+}
 
 // PUBLIC --------------------------------------------------------------------------------//
 
@@ -46,18 +47,55 @@ Scena::Scena()
  */
 
 
-void Scena::dodajLazik(const char*  sNazwaPliku_BrylaWzorcowa, const char*  sNazwaObiektu, int KolorID, double X, double Y, double Z)
+void Scena::dodajLazik(const char*  sNazwaPliku_BrylaWzorcowa, const char*  sNazwaObiektu, double X, double Y, double Z)
 {
-    _AktywnyLazik = std::make_shared<Lazik>(sNazwaPliku_BrylaWzorcowa, sNazwaObiektu, KolorID);
-    _ObiektySceny.push_front(_AktywnyLazik);
-
-    _AktywnyLazik->_Polozenie[0] = X;
-    _AktywnyLazik->_Polozenie[1] = Y;
-    _AktywnyLazik->_Polozenie[2] = Z;
-    _AktywnyLazik->Przelicz_i_Zapisz_Wierzcholki();
-    DodajDoListyRysowania(*_AktywnyLazik);
+    std::shared_ptr<Lazik> lazik = std::make_shared<Lazik>(sNazwaPliku_BrylaWzorcowa, sNazwaObiektu, NIEAKTYWNY_LAZIK_KOLOR);
+    lazik->_Polozenie[0] = X;
+    lazik->_Polozenie[1] = Y;
+    lazik->_Polozenie[2] = Z;
+    lazik->Przelicz_i_Zapisz_Wierzcholki();
+    DodajDoListyRysowania(lazik);
+    dodajElementDoListy(lazik, Lazik_t);
     Lacze.Rysuj();
 }
+
+
+void Scena::dostepneLaziki()
+{
+    for (int i = Lazik_t * MAKS_ILOSC_OBIEKTOW; _ObiektySceny.count(i); ++i) {
+        std::shared_ptr<Lazik> lazik = std::static_pointer_cast<Lazik>(_ObiektySceny[i]);
+        cout << i << ((lazik == _AktywnyLazik) ? ". AKTYWNY" : ". NIEAKTYWNY") << endl;
+        lazik->informacje();
+    }
+
+}
+
+void Scena::zmienAktywnyLazik(int numer)
+{
+    _AktywnyLazik = std::static_pointer_cast<Lazik>(_ObiektySceny[Lazik_t * MAKS_ILOSC_OBIEKTOW
+                                                                  + numer]);
+    for (int i=MAKS_ILOSC_OBIEKTOW * Lazik_t; _ObiektySceny.count(i); ++i) {
+        std::shared_ptr<Lazik> lazik = std::static_pointer_cast<Lazik>(_ObiektySceny[i]);
+        ZmienKolorObiektu(lazik, NIEAKTYWNY_LAZIK_KOLOR);
+    }
+    ZmienKolorObiektu(_AktywnyLazik, AKTYWNY_LAZIK_KOLOR);
+}
+
+void Scena::ZmienKolorObiektu(std::shared_ptr<ObiektGeom> rOb, Kolory kolor)
+{
+    PzG::InfoPlikuDoRysowania *wInfoPliku;
+    rOb->ZmienKolorID(kolor);
+    wInfoPliku = Lacze.ZnajdzNazwePliku(rOb->WezNazwePliku_BrylaRysowana());
+    wInfoPliku->ZmienKolor(rOb->WezKolorID());
+    Lacze.Rysuj();
+}
+
+
+
+
+
+
+
 
 
 

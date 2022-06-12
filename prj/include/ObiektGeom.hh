@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include "Kolory.hh"
 #include "Wektor3D.hh"
 #include "MacierzRotacji3D.hh"
 
@@ -19,11 +20,15 @@ protected:
     MacierzRotacji3D _MacierzRotacji;
 
 public:
+
+
+
     Wektor3D      _Polozenie;
 
     ObiektGeom(const char* sNazwaPliku_BrylaWzorcowa, const char* sNazwaObiektu, int KolorID);
 
     int WezKolorID() const { return _KolorID; }
+    void ZmienKolorID(Kolory kolor) { _KolorID = kolor; }
   
     const std::string & WezNazweObiektu() const { return _NazwaObiektu; }
   
