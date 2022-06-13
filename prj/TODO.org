@@ -49,12 +49,12 @@ testujemy. Dopiero po przetestowaniu i usunięciu błędów przechodzimy do nast
 [[../../zad6-faza2.pdf][Instrukcja]]
 
 ** DONE Punkt 1
-** Punkt 2
+** DONE Punkt 2
 ** DONE Punkt 3
 ** DONE Punkt 4
 ** DONE Punkt 5
 ** DONE Punkt 6
-** Punkt 7
+** DONE Punkt 7
 ** Punkt 8
 ** Punkt 9
 ** Punkt 10

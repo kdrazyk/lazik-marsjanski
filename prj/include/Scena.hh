@@ -32,21 +32,13 @@ public:
                     double X, double Y, double Z);
 
     void wyborLazika(int numer);
-    void obroc(double kat) {
-        _AktywnyLazik->UstawKatDoObrotu(kat);
-        while (_AktywnyLazik->obroc()) Lacze.Rysuj();}
-
-
-    void przemiesc(double odleglosc) {
-        _AktywnyLazik->UstawOdlegloscDoPrzejechania(odleglosc);
-        while (_AktywnyLazik->przemiesc()) Lacze.Rysuj(); }
-
-
-
-    void informacje() const          {if (_AktywnyLazik) _AktywnyLazik->informacje(); else cout << "Brak aktywnego lazika" << endl; }
+    void obroc(double kat);
+    void przemiesc(double odleglosc);
+    void informacje() const;
     void dostepneLaziki();
     void zmienAktywnyLazik(int numer);
     void ZmienKolorObiektu(std::shared_ptr<ObiektGeom> rOb, Kolory kolor);
+    void KontrolaKolizji();
 };
 
 #endif

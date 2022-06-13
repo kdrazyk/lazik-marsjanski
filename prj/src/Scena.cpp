@@ -89,10 +89,38 @@ void Scena::ZmienKolorObiektu(std::shared_ptr<ObiektGeom> rOb, Kolory kolor)
 }
 
 
+void Scena::obroc(double kat)
+{
+    _AktywnyLazik->UstawKatDoObrotu(kat);
+    while (_AktywnyLazik->obroc()) {
+        KontrolaKolizji();
+        Lacze.Rysuj();
+    }
+}
 
 
+void Scena::przemiesc(double odleglosc)
+{
+    _AktywnyLazik->UstawOdlegloscDoPrzejechania(odleglosc);
+    while (_AktywnyLazik->przemiesc()) {
+        KontrolaKolizji();
+        Lacze.Rysuj();
+    }
+}
 
+void Scena::KontrolaKolizji() {
+    std::map<int, std::shared_ptr<ObiektGeom>>::const_iterator i;
+    for (i = _ObiektySceny.cbegin(); i != _ObiektySceny.cend(); ++i)
+            if (i->second->CzyKolizja(_AktywnyLazik)) _AktywnyLazik->cofnij();
+}
 
+void Scena::informacje() const
+{
+    if (_AktywnyLazik)
+        _AktywnyLazik->informacje();
+    else
+        cout << "Brak aktywnego lazika" << endl;
+}
 
 
 

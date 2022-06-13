@@ -14,7 +14,7 @@
 
 #define NAZWA_KARTOTEKI_PLIKOW_DO_RYSOWANIA    "pliki_do_rysowania"
 
-class Lazik;
+class Lazik; // dla metody CzyKolizja()
 
 class ObiektGeom {
 protected:
@@ -28,21 +28,18 @@ protected:
     Wektor3D      _Polozenie;
 public:
     ObiektGeom(const char* sNazwaPliku_BrylaWzorcowa, const char* sNazwaObiektu, int KolorID);
+
     virtual ~ObiektGeom() {}
-
-    void UstawPolozenie(double X, double Y, double Z) {_Polozenie[wsp::X] = X; _Polozenie[wsp::Y] = Y; _Polozenie[wsp::Z] = Z;}
-    int WezKolorID() const { return _KolorID; }
-    void ZmienKolorID(Kolory kolor) { _KolorID = kolor; }
-
-    const ObrysXY & WezObrys() const {return _Obrys;}
-
-    const std::string & WezNazweObiektu() const { return _NazwaObiektu; }
-  
-    const std::string & WezNazwePliku_BrylaRysowana() const
-    { return _NazwaPliku_BrylaRysowana; }
-
+    virtual int ID() const = 0;
     virtual TypKolizji CzyKolizja(const std::shared_ptr<Lazik> &Wsk_Lazik) const = 0;
 
+    int WezKolorID() const { return _KolorID; }
+    const ObrysXY & WezObrys() const {return _Obrys;}
+    const std::string & WezNazweObiektu() const { return _NazwaObiektu; }
+    const std::string & WezNazwePliku_BrylaRysowana() const { return _NazwaPliku_BrylaRysowana; }
+
+    void UstawPolozenie(double X, double Y, double Z) {_Polozenie[wsp::X] = X; _Polozenie[wsp::Y] = Y; _Polozenie[wsp::Z] = Z;}
+    void ZmienKolorID(Kolory kolor) { _KolorID = kolor; }
     void Przelicz_i_Zapisz_Wierzcholki();
     void Przelicz_i_Zapisz_Wierzcholki(std::istream &StrmWe, std::ostream &StrmWy);
 };
