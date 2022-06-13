@@ -23,7 +23,7 @@ ObiektGeom::ObiektGeom( const char*  sNazwaPliku_BrylaWzorcowa,
 
 
 
-void ObiektGeom::Przelicz_i_Zapisz_Wierzcholki() const
+void ObiektGeom::Przelicz_i_Zapisz_Wierzcholki()
 {
     ifstream  StrmWe(_NazwaPliku_BrylaWzorcowa);
     ofstream  StrmWy(_NazwaPliku_BrylaRysowana);
@@ -39,11 +39,13 @@ void ObiektGeom::Przelicz_i_Zapisz_Wierzcholki() const
     this->Przelicz_i_Zapisz_Wierzcholki(StrmWe, StrmWy);
 }
 
-void ObiektGeom::Przelicz_i_Zapisz_Wierzcholki(std::istream &StrmWe, std::ostream &StrmWy) const
+void ObiektGeom::Przelicz_i_Zapisz_Wierzcholki(std::istream &StrmWe, std::ostream &StrmWy)
 {
+    using namespace wsp;
     Wektor3D wspolrzedne;
     int Indeks_Wiersza = 0;
     int i=0;
+    Wektor2D WDL, WGP;
     StrmWe >> wspolrzedne;
 
     if (StrmWe.fail()) std::exit(-1);
@@ -56,7 +58,19 @@ void ObiektGeom::Przelicz_i_Zapisz_Wierzcholki(std::istream &StrmWe, std::ostrea
 
         wspolrzedne = _MacierzRotacji * wspolrzedne + _Polozenie;
 
-        StrmWy << wspolrzedne[0] << " " << wspolrzedne[1] << " " << wspolrzedne[2] << endl;
+        if (WDL.iloczynSkalarny(WDL) == 0 && WGP.iloczynSkalarny(WGP) == 0) {
+            WDL[X] = WGP[X] = wspolrzedne[X];
+            WDL[Y] = WGP[Y] = wspolrzedne[Y];
+        }
+        else {
+            if      (wspolrzedne[X] < WDL[X]) WDL[X] = wspolrzedne[X];
+            else if (wspolrzedne[X] > WGP[X]) WGP[X] = wspolrzedne[X];
+            if      (wspolrzedne[Y] < WDL[Y]) WDL[Y] = wspolrzedne[Y];
+            else if (wspolrzedne[Y] > WGP[Y]) WGP[Y] = wspolrzedne[Y];
+        }
+
+
+        StrmWy << wspolrzedne[X] << " " << wspolrzedne[Y] << " " << wspolrzedne[Z] << endl;
         ++Indeks_Wiersza;
 
         if (Indeks_Wiersza >= 4) {
@@ -66,6 +80,12 @@ void ObiektGeom::Przelicz_i_Zapisz_Wierzcholki(std::istream &StrmWe, std::ostrea
 
         StrmWe >> wspolrzedne;
     } while (!StrmWe.fail());
+
+    _Obrys.ZmienWDL() = WDL;
+    _Obrys.ZmienWGP() = WGP;
+
+    cout << "WDL: " << _Obrys.WezWDL() << endl;
+    cout << "WGP: " << _Obrys.WezWGP() << endl;
 
     if (!StrmWe.eof()) std::exit(-1);
 

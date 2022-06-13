@@ -50,9 +50,7 @@ Scena::Scena()
 void Scena::dodajLazik(const char*  sNazwaPliku_BrylaWzorcowa, const char*  sNazwaObiektu, double X, double Y, double Z)
 {
     std::shared_ptr<Lazik> lazik = std::make_shared<Lazik>(sNazwaPliku_BrylaWzorcowa, sNazwaObiektu, NIEAKTYWNY_LAZIK_KOLOR);
-    lazik->_Polozenie[0] = X;
-    lazik->_Polozenie[1] = Y;
-    lazik->_Polozenie[2] = Z;
+    lazik->UstawPolozenie(X, Y, Z);
     lazik->Przelicz_i_Zapisz_Wierzcholki();
     DodajDoListyRysowania(lazik);
     dodajElementDoListy(lazik, Lazik_t);

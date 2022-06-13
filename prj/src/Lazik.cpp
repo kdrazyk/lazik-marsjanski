@@ -62,3 +62,11 @@ void Lazik::informacje() const
          << setw(odstep) <<"Orientacja [st]: " << _KatOrientacji << endl
          << endl;
 }
+
+TypKolizji Lazik::CzyKolizja(const std::shared_ptr<Lazik> &Wsk_Lazik) const
+{
+    if (_Obrys.NalozenieObrysow(Wsk_Lazik->WezObrys()))
+        return TK_Kolizja;
+    else
+        return TK_BrakKolizji;
+}

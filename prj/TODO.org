@@ -28,18 +28,18 @@ Dodajemy w obiekcie klasy Scena listę obiektów geometrycznych z wykorzystaniem
 *** COMMENT
 Korzystnym jest umieszczenie w klasie Scena obiektu klasy LaczeDoGNUPlota. Teraz usuwamy obiekt tej klasy z funkcji main() i posługujemy się poprzez zdefiniowanie odpowiednich metod w klasie Scena.
 
-** Punkt 16
+** DONE Punkt 16
 *** COMMENT
 Wykorzystując mechanizm rzutowania w górę umieszczamy na tej liście wszystkie łaziki. Należy to zrobić w konstruktorze klasy Scena. Jeśli mamy zintegrowany z tą klasą obiekt klasy LaczeDoGNUPlota to wywołujmy metody inicjalizujące łącze oraz dodajemy nazwy plików, do których będą zapisywane wierzchołki poszczególnych łazików.
 Uruchamiamy też ich obliczenie i zapis (wywołanie metod
 ObiektGeom::Przelicz_i_Zapisz_Wierzcholki()). W funkcji main() wywołujemy metodę rysowania, aby ukazał się obraz wszystkich łazików.
 
 Naprawić obiekty prywatne w scenie.
-** Punkt 17
+** DONE Punkt 17
 *** COMMENT
 Definiujemy metodę selekcji łazika i testujemy ją.
 
-** Punkt 18
+** DONE Punkt 18
 *** COMMENT
 Gdy mamy to wszystko, dopiero teraz definiujemy interfejs użytkownika. Definiujemy i
 implementujemy menu oraz obsługę poszczególnych opcji. Implementujmy je po kolei i
@@ -47,3 +47,21 @@ testujemy. Dopiero po przetestowaniu i usunięciu błędów przechodzimy do nast
 
 * Faza 2
 [[../../zad6-faza2.pdf][Instrukcja]]
+
+** DONE Punkt 1
+** Punkt 2
+** DONE Punkt 3
+** DONE Punkt 4
+** DONE Punkt 5
+** DONE Punkt 6
+** Punkt 7
+** Punkt 8
+** Punkt 9
+** Punkt 10
+** Punkt 11
+** Punkt 12
+** Punkt 13
+** Punkt 14
+** Punkt 15
+** Punkt 16
+** Punkt 17

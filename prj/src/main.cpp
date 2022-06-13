@@ -95,6 +95,7 @@ int main()
 
         Inicjalizuj_Laziki(mars);
 
+
         menu::menu(mars);
     }
     Wektor3D::iloscObiektow();

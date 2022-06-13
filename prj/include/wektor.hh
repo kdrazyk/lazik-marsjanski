@@ -4,10 +4,15 @@
 #include <iomanip>
 #include <cmath>
 
-using namespace std;
+
 
 #define SZEROKOSC 6
 #define PRECYZJA  1
+
+namespace wsp {enum Wspolrzedne_t {X, Y, Z};}
+
+
+using namespace std;
 
 template <typename T, int Rozmiar>
 class wektor {
@@ -87,6 +92,8 @@ T wektor<T,Rozmiar>::iloczynSkalarny(const wektor<T, Rozmiar> &wek2) const
         wynik += this->_wsp[i] * wek2._wsp[i];
     return wynik;
 }
+
+
 
 template <typename T, int Rozmiar>
 wektor<T,Rozmiar> wektor<T,Rozmiar>::operator + (const wektor<T, Rozmiar> &wektor2) const

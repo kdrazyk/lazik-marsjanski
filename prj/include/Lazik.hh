@@ -23,8 +23,9 @@ public:
     void informacje() const;
     void UstawOdlegloscDoPrzejechania(double odleglosc) {_OdlegloscDoPrzejechania = odleglosc;}
     void UstawKatDoObrotu(double kat) {_KatDoObrotu = kat;}
-};
 
+    virtual TypKolizji CzyKolizja(const std::shared_ptr<Lazik> &Wsk_Lazik) const override;
+};
 
 
 #endif
