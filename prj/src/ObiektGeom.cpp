@@ -13,9 +13,7 @@ ObiektGeom::ObiektGeom( const char*  sNazwaPliku_BrylaWzorcowa,
     _NazwaPliku_BrylaRysowana += "/";
     _NazwaPliku_BrylaRysowana += sNazwaObiektu;
     _NazwaPliku_BrylaRysowana += ".dat";
-    _Skala[0] = 20;
-    _Skala[1] = 20;
-    _Skala[2] = 10;
+    ZmienSkale(10,10,10);
     _Polozenie[0] = 0;
     _Polozenie[1] = 0;
     _Polozenie[2] = 0;
@@ -84,10 +82,19 @@ void ObiektGeom::Przelicz_i_Zapisz_Wierzcholki(std::istream &StrmWe, std::ostrea
     _Obrys.ZmienWDL() = WDL;
     _Obrys.ZmienWGP() = WGP;
 
-    cout << "WDL: " << _Obrys.WezWDL() << endl;
-    cout << "WGP: " << _Obrys.WezWGP() << endl;
-
     if (!StrmWe.eof()) std::exit(-1);
 
     if (!(Indeks_Wiersza == 0 && !StrmWy.fail())) std::exit(-1);
+}
+
+double ObiektGeom::odlegloscOdOsi(const shared_ptr<ObiektGeom> &obiekt) const
+{
+    using namespace wsp;
+    Wektor3D kierunek, wWodzacy;
+
+    kierunek[X] = 1;
+    kierunek = obiekt->_MacierzRotacji * kierunek;
+    wWodzacy = this->_Polozenie - obiekt->_Polozenie;
+
+    return abs(kierunek[X] * wWodzacy[Y] - kierunek[Y] * wWodzacy[X]);
 }

@@ -3,18 +3,20 @@
 
 #include <iostream>
 #include <memory>
-#include <list>
+//#include <list>
 #include <map>
 
 #include "Lazik.hh"
 #include "lacze_do_gnuplota.hh"
 #include "PowierzchniaMarsa.hh"
+#include "ProbkaRegolitu.hh"
+
 
 #define MAKS_ILOSC_OBIEKTOW 100
 #define AKTYWNY_LAZIK_KOLOR Kolor_JasnoNiebieski
 #define NIEAKTYWNY_LAZIK_KOLOR Kolor_Czerwony
 
-enum Obiekt {Lazik_t, Przeszkoda_t};
+enum Obiekt {Lazik_t, Przeszkoda_t, Probka_t};
 
 class Scena
 {
@@ -27,10 +29,10 @@ private:
     int dodajElementDoListy(std::shared_ptr<ObiektGeom> el, Obiekt typ);
 public:
     Scena();
-    void dodajLazik(const char*  sNazwaPliku_BrylaWzorcowa,
-                    const char*  sNazwaObiektu,
+    void dodajLazik(const char*  sNazwaObiektu,
                     double X, double Y, double Z);
-
+    void dodajProbkeRegolitu(const char*  sNazwaObiektu, int KolorID,
+                             double X, double Y, double Z);
     void wyborLazika(int numer);
     void obroc(double kat);
     void przemiesc(double odleglosc);
@@ -39,6 +41,7 @@ public:
     void zmienAktywnyLazik(int numer);
     void ZmienKolorObiektu(std::shared_ptr<ObiektGeom> rOb, Kolory kolor);
     void KontrolaKolizji();
+    void WyswietlProbki() const;
 };
 
 #endif

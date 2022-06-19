@@ -47,15 +47,26 @@ Scena::Scena()
  */
 
 
-void Scena::dodajLazik(const char*  sNazwaPliku_BrylaWzorcowa, const char*  sNazwaObiektu, double X, double Y, double Z)
+void Scena::dodajLazik(const char*  sNazwaObiektu, double X, double Y, double Z)
 {
-    std::shared_ptr<Lazik> lazik = std::make_shared<Lazik>(sNazwaPliku_BrylaWzorcowa, sNazwaObiektu, NIEAKTYWNY_LAZIK_KOLOR);
+    std::shared_ptr<Lazik> lazik = std::make_shared<Lazik>(sNazwaObiektu, NIEAKTYWNY_LAZIK_KOLOR);
     lazik->UstawPolozenie(X, Y, Z);
     lazik->Przelicz_i_Zapisz_Wierzcholki();
     DodajDoListyRysowania(lazik);
     dodajElementDoListy(lazik, Lazik_t);
     Lacze.Rysuj();
 }
+
+void Scena::dodajProbkeRegolitu(const char*  sNazwaObiektu, int KolorID, double X, double Y, double Z)
+{
+    std::shared_ptr<ProbkaRegolitu> probka = std::make_shared<ProbkaRegolitu>(sNazwaObiektu, KolorID);
+    probka->UstawPolozenie(X, Y, Z);
+    probka->Przelicz_i_Zapisz_Wierzcholki();
+    DodajDoListyRysowania(probka);
+    dodajElementDoListy(probka, Probka_t);
+    Lacze.Rysuj();
+}
+
 
 
 void Scena::dostepneLaziki()
@@ -111,17 +122,32 @@ void Scena::przemiesc(double odleglosc)
 void Scena::KontrolaKolizji() {
     std::map<int, std::shared_ptr<ObiektGeom>>::const_iterator i;
     for (i = _ObiektySceny.cbegin(); i != _ObiektySceny.cend(); ++i)
-            if (i->second->CzyKolizja(_AktywnyLazik)) _AktywnyLazik->cofnij();
+            if (i->second->CzyKolizja(_AktywnyLazik) == TK_Kolizja) _AktywnyLazik->cofnij();
 }
 
 void Scena::informacje() const
 {
-    if (_AktywnyLazik)
+    if (_AktywnyLazik) {
         _AktywnyLazik->informacje();
+    }
+
     else
         cout << "Brak aktywnego lazika" << endl;
 }
 
+
+void Scena::WyswietlProbki() const
+{
+    int indeks = 1;
+    std::map<int, std::shared_ptr<ObiektGeom>>::const_iterator i;
+    cout << "Lista probek na scenie:" << endl;
+    for (i = _ObiektySceny.cbegin(); i != _ObiektySceny.cend(); ++i)
+        if (i->second->ID() == OG_ProbkaRegolitu) {
+            cout << setw(5) << indeks++ << ". ";
+            i->second->informacje();
+            cout << endl;
+        }
+}
 
 
 

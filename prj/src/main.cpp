@@ -4,11 +4,24 @@
 
 using namespace std;
 
-void Inicjalizuj_Laziki(Scena &scena)
+#define KOLOR_PROBKI 18
+
+void Inicjalizuj_Obiekty_Sceny(Scena &scena)
 {
-    scena.dodajLazik("bryly_wzorcowe/szescian3.dat","FSR"         ,  0,  0, 0);
-    scena.dodajLazik("bryly_wzorcowe/szescian3.dat","Perseverance", 60, 60, 0);
-    scena.dodajLazik("bryly_wzorcowe/szescian3.dat","Curiosity"   ,-20, 70, 0);
+    scena.dodajLazik("FSR"         , -5,  0, 0);
+    scena.dodajLazik("Perseverance", 50, 60, 0);
+    scena.dodajLazik("Curiosity"   ,-20, 70, 0);
+
+    scena.dodajProbkeRegolitu("Coulettes"   , KOLOR_PROBKI,  0,  90, 0);
+    scena.dodajProbkeRegolitu("Salette"     , KOLOR_PROBKI,  0,  85, 0);
+    scena.dodajProbkeRegolitu("Dourbes"     , KOLOR_PROBKI, 10,  80, 0);
+    scena.dodajProbkeRegolitu("Robine"      , KOLOR_PROBKI, 70,  60, 0);
+    scena.dodajProbkeRegolitu("Quartier"    , KOLOR_PROBKI, 70,  50, 0);
+    scena.dodajProbkeRegolitu("Bellegarde"  , KOLOR_PROBKI,-70,  55, 0);
+    scena.dodajProbkeRegolitu("Montdenier"  , KOLOR_PROBKI,-80,  65, 0);
+    scena.dodajProbkeRegolitu("Montagnac"   , KOLOR_PROBKI,-60,  50, 0);
+    scena.dodajProbkeRegolitu("Guillaumes"  , KOLOR_PROBKI, 10,   0, 0);
+    scena.dodajProbkeRegolitu("Roubion"     , KOLOR_PROBKI, 50, -60, 0);
 }
 
 
@@ -47,6 +60,7 @@ namespace menu {
         cout << "j - jazda na wprost" << endl
              << "o - zmien orientacje" << endl
              << "w - wybor lazika" << endl
+             << "l - lista probek na scenie" << endl
              << "m - wyswietl menu" << endl
              << "k - koniec dzialania programu" << endl << endl;
 
@@ -79,6 +93,7 @@ namespace menu {
             case 'j': jazda_na_wprost(scena);  break;
             case 'o': zmien_orientacje(scena); break;
             case 'w': wybor_lazika(scena);     break;
+            case 'l': scena.WyswietlProbki();  break;
             case 'm': wyswietl_menu(scena);    break;
             case 'k': wyjscie(koniec);         break;
             default:  bledna_opcja();
@@ -93,8 +108,7 @@ int main()
     {
         Scena mars;
 
-        Inicjalizuj_Laziki(mars);
-
+        Inicjalizuj_Obiekty_Sceny(mars);
 
         menu::menu(mars);
     }

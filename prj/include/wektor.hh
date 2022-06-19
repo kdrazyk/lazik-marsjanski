@@ -29,6 +29,7 @@ public:
     T & operator[] (int el) {return this->_wsp[el];}
     void add(int x, T y) {_wsp[x] += y;}
     T iloczynSkalarny(const wektor<T, Rozmiar> &wek2) const;
+    wektor<T, Rozmiar> iloczynWektorowy(const wektor<T, Rozmiar> &wek2) const;
     double dlugosc();
     static void iloscObiektow();
 
@@ -92,6 +93,8 @@ T wektor<T,Rozmiar>::iloczynSkalarny(const wektor<T, Rozmiar> &wek2) const
         wynik += this->_wsp[i] * wek2._wsp[i];
     return wynik;
 }
+
+
 
 
 

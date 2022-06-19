@@ -1,8 +1,9 @@
 #include "Lazik.hh"
 
-Lazik::Lazik( const char*  sNazwaPliku_BrylaWzorcowa, const char*  sNazwaObiektu, int KolorID):
-    ObiektGeom(sNazwaPliku_BrylaWzorcowa, sNazwaObiektu, KolorID)
+Lazik::Lazik(const char*  sNazwaObiektu, int KolorID):
+    ObiektGeom("bryly_wzorcowe/szescian3.dat", sNazwaObiektu, KolorID)
 {
+    ZmienSkale(LAZIK_SKALA_X, LAZIK_SKALA_Y, LAZIK_SKALA_Z);
     _KatOrientacji = 0;
     _Szybkosc = 1.5;
     _OdlegloscDoPrzejechania = 0;
@@ -64,7 +65,7 @@ bool Lazik::przemiesc()
 
 void Lazik::informacje() const
 {
-    int odstep = 20;
+    const int odstep = 20;
     cout << setw(odstep) << "Nazwa: " <<  _NazwaObiektu << endl
          << setw(odstep) <<"Polozenie [x,y,z]: " << _Polozenie << endl
          << setw(odstep) <<"Orientacja [st]: " << _KatOrientacji << endl

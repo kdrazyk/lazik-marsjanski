@@ -55,10 +55,10 @@ testujemy. Dopiero po przetestowaniu i usunięciu błędów przechodzimy do nast
 ** DONE Punkt 5
 ** DONE Punkt 6
 ** DONE Punkt 7
-** Punkt 8
-** Punkt 9
-** Punkt 10
-** Punkt 11
+** DONE Punkt 8
+** DONE Punkt 9
+** DONE Punkt 10
+** DONE Punkt 11
 ** Punkt 12
 ** Punkt 13
 ** Punkt 14
