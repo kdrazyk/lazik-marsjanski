@@ -7,6 +7,7 @@
 #include <map>
 
 #include "Lazik.hh"
+#include "LazikSFR.hh"
 #include "lacze_do_gnuplota.hh"
 #include "PowierzchniaMarsa.hh"
 #include "ProbkaRegolitu.hh"
@@ -26,10 +27,13 @@ private:
     std::map<int, std::shared_ptr<ObiektGeom>> _ObiektySceny;
     void Inicjalizuj_Lacze();
     void DodajDoListyRysowania(std::shared_ptr<ObiektGeom>  rOb);
+    void UsunZListyRysowania(std::shared_ptr<ObiektGeom> Ob);
     int dodajElementDoListy(std::shared_ptr<ObiektGeom> el, Obiekt typ);
 public:
     Scena();
     void dodajLazik(const char*  sNazwaObiektu,
+                    double X, double Y, double Z);
+    void dodajLazikSFR(const char*  sNazwaObiektu,
                     double X, double Y, double Z);
     void dodajProbkeRegolitu(const char*  sNazwaObiektu, int KolorID,
                              double X, double Y, double Z);
@@ -42,6 +46,8 @@ public:
     void ZmienKolorObiektu(std::shared_ptr<ObiektGeom> rOb, Kolory kolor);
     void KontrolaKolizji();
     void WyswietlProbki() const;
+
+    void podniesProbke();
 };
 
 #endif

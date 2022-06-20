@@ -19,6 +19,12 @@ void Scena::DodajDoListyRysowania(std::shared_ptr<ObiektGeom> rOb)
     wInfoPliku->ZmienKolor(rOb->WezKolorID());
 }
 
+void Scena::UsunZListyRysowania(std::shared_ptr<ObiektGeom> Ob)
+{
+    Lacze.UsunNazwePliku(Lacze.ZnajdzNazwePliku(Ob->WezNazwePliku_BrylaRysowana()));
+    Lacze.Rysuj();
+}
+
 int Scena::dodajElementDoListy(std::shared_ptr<ObiektGeom> el, Obiekt typ)
 {
     int i;
@@ -56,6 +62,17 @@ void Scena::dodajLazik(const char*  sNazwaObiektu, double X, double Y, double Z)
     dodajElementDoListy(lazik, Lazik_t);
     Lacze.Rysuj();
 }
+
+void Scena::dodajLazikSFR(const char*  sNazwaObiektu, double X, double Y, double Z)
+{
+    std::shared_ptr<Lazik> lazik = std::make_shared<LazikSFR>(sNazwaObiektu, NIEAKTYWNY_LAZIK_KOLOR);
+    lazik->UstawPolozenie(X, Y, Z);
+    lazik->Przelicz_i_Zapisz_Wierzcholki();
+    DodajDoListyRysowania(lazik);
+    dodajElementDoListy(lazik, Lazik_t);
+    Lacze.Rysuj();
+}
+
 
 void Scena::dodajProbkeRegolitu(const char*  sNazwaObiektu, int KolorID, double X, double Y, double Z)
 {
@@ -120,17 +137,20 @@ void Scena::przemiesc(double odleglosc)
 }
 
 void Scena::KontrolaKolizji() {
+    TypKolizji typ;
     std::map<int, std::shared_ptr<ObiektGeom>>::const_iterator i;
-    for (i = _ObiektySceny.cbegin(); i != _ObiektySceny.cend(); ++i)
-            if (i->second->CzyKolizja(_AktywnyLazik) == TK_Kolizja) _AktywnyLazik->cofnij();
+    for (i = _ObiektySceny.cbegin(); i != _ObiektySceny.cend(); ++i) {
+        typ = i->second->CzyKolizja(_AktywnyLazik);
+        switch (typ) {
+            case TK_Kolizja: _AktywnyLazik->cofnij(); break;
+        }
+    }
 }
 
 void Scena::informacje() const
 {
-    if (_AktywnyLazik) {
+    if (_AktywnyLazik)
         _AktywnyLazik->informacje();
-    }
-
     else
         cout << "Brak aktywnego lazika" << endl;
 }
@@ -150,7 +170,50 @@ void Scena::WyswietlProbki() const
 }
 
 
+void Scena::podniesProbke()
+{
+    using namespace wsp;
+    Wektor3D wzglednePolozenie;
+    std::map<int, std::shared_ptr<ObiektGeom>>::const_iterator i;
+    std::map<int, std::shared_ptr<ObiektGeom>>::const_iterator np; //najblizszaProbka
+    double odleglosc, odlegloscMin;
+    const double zasieg = 30;
 
+    if (_AktywnyLazik->ID() != OG_LazikSFR) {
+        cout << "Operacja dostepna tylko dla lazika SFR" << endl;
+        return;
+    }
+
+    for (i = _ObiektySceny.cbegin(); i->second->ID() != OG_ProbkaRegolitu; ++i)
+        np = i;
+
+    wzglednePolozenie = _AktywnyLazik->WezPolozenie() - np->second->WezPolozenie();
+    odlegloscMin = odleglosc = wzglednePolozenie.dlugosc();
+
+    for (; i != _ObiektySceny.cend(); ++i) {
+        if (i->second->ID() == OG_ProbkaRegolitu) {
+            wzglednePolozenie = _AktywnyLazik->WezPolozenie() - i->second->WezPolozenie();
+            odleglosc = wzglednePolozenie.dlugosc();
+            if (odleglosc < odlegloscMin) {
+                odlegloscMin = odleglosc;
+                np = i;
+            }
+        }
+    }
+
+    if (odlegloscMin < zasieg) {
+        cout << "Podniesiono probke:" << endl;
+        np->second->informacje();
+        cout << endl;
+        std::static_pointer_cast<LazikSFR>(_AktywnyLazik)->dodajProbkeDoListy(std::static_pointer_cast<ProbkaRegolitu>(np->second));
+        UsunZListyRysowania(np->second);
+        _ObiektySceny.erase(np);
+    }
+    else {
+        cout << "Nie znaleziono probki w zasiegu" << endl;
+    }
+
+}
 
 
 

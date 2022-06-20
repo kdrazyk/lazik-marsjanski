@@ -94,7 +94,15 @@ T wektor<T,Rozmiar>::iloczynSkalarny(const wektor<T, Rozmiar> &wek2) const
     return wynik;
 }
 
-
+template <typename T, int Rozmiar>
+double wektor<T,Rozmiar>::dlugosc()
+{
+    double suma_kwadratow = 0;
+    int i;
+    for (i=0; i<Rozmiar; ++i)
+        suma_kwadratow += _wsp[i] * _wsp[i];
+    return sqrt(suma_kwadratow);
+}
 
 
 

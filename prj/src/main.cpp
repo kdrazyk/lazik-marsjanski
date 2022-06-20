@@ -8,7 +8,7 @@ using namespace std;
 
 void Inicjalizuj_Obiekty_Sceny(Scena &scena)
 {
-    scena.dodajLazik("FSR"         , -5,  0, 0);
+    scena.dodajLazikSFR("FSR"         , -5,  0, 0);
     scena.dodajLazik("Perseverance", 50, 60, 0);
     scena.dodajLazik("Curiosity"   ,-20, 70, 0);
 
@@ -53,6 +53,11 @@ namespace menu {
         scena.zmienAktywnyLazik(numer);
     }
 
+    void podejmij_probke(Scena &scena)
+    {
+        scena.podniesProbke();
+    }
+
     void wyswietl_menu(Scena &scena)
     {
         cout << endl<< "Aktywny lazik" << endl;
@@ -61,6 +66,7 @@ namespace menu {
              << "o - zmien orientacje" << endl
              << "w - wybor lazika" << endl
              << "l - lista probek na scenie" << endl
+             << "p - podejmij probke (tylko dla SFR)" << endl
              << "m - wyswietl menu" << endl
              << "k - koniec dzialania programu" << endl << endl;
 
@@ -94,6 +100,7 @@ namespace menu {
             case 'o': zmien_orientacje(scena); break;
             case 'w': wybor_lazika(scena);     break;
             case 'l': scena.WyswietlProbki();  break;
+            case 'p': podejmij_probke(scena);  break;
             case 'm': wyswietl_menu(scena);    break;
             case 'k': wyjscie(koniec);         break;
             default:  bledna_opcja();

@@ -39,6 +39,7 @@ public:
 
     int WezKolorID() const { return _KolorID; }
     const ObrysXY & WezObrys() const {return _Obrys;}
+    const Wektor3D & WezPolozenie() const {return _Polozenie;}
     double WezSzerokosc() const {return _Skala[wsp::Y];}
     const std::string & WezNazweObiektu() const { return _NazwaObiektu; }
     const std::string & WezNazwePliku_BrylaRysowana() const { return _NazwaPliku_BrylaRysowana; }
