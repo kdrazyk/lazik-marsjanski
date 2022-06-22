@@ -92,6 +92,8 @@ namespace menu {
     {
         bool koniec = false;
         char opcja;
+
+
         do {
             wyswietl_menu(scena);
 
@@ -145,7 +147,17 @@ namespace MENU {
         tcsetattr( STDIN_FILENO, TCSANOW, &newt);
 
 
-        do {
+        cout << "1,2,3 - wybor lazika" << endl;
+        cin >> opcja;
+
+        switch(opcja) {
+        case '1': scena.zmienAktywnyLazik(0);  break;
+        case '2': scena.zmienAktywnyLazik(1);  break;
+        case '3': scena.zmienAktywnyLazik(2);  break;
+        default: koniec = true;
+        }
+
+        while(!koniec) {
             wyswietl_menu(scena);
 
             cin >> opcja;
@@ -161,14 +173,10 @@ namespace MENU {
             case 'p': scena.podniesProbke();       break;
             case 'z': scena.zostawProbke();        break;
             case 'k': koniec = true;               break;
-
-
             }
-
-        } while(!koniec);
+        }
         tcsetattr( STDIN_FILENO, TCSANOW, &oldt);
     }
-
 }
 
 
