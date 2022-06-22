@@ -5,7 +5,7 @@ Lazik::Lazik(const char*  sNazwaObiektu, int KolorID):
 {
     ZmienSkale(LAZIK_SKALA_X, LAZIK_SKALA_Y, LAZIK_SKALA_Z);
     _KatOrientacji = 0;
-    _Szybkosc = 1.5;
+    _Szybkosc = 10;
     _OdlegloscDoPrzejechania = 0;
 }
 
