@@ -31,6 +31,8 @@ int Scena::dodajElementDoListy(std::shared_ptr<ObiektGeom> el, Obiekt typ)
     for (i=MAKS_ILOSC_OBIEKTOW * typ; _ObiektySceny.count(i); ++i);
     _ObiektySceny.emplace(i,el);
     return i;
+    // _ObiektyScenyB.push_front(el);
+    // return 0;
 }
 
 // PUBLIC --------------------------------------------------------------------------------//
@@ -80,6 +82,18 @@ void Scena::dodajProbkeRegolitu(const char*  sNazwaObiektu, int KolorID, double 
     probka->UstawPolozenie(X, Y, Z);
     probka->Przelicz_i_Zapisz_Wierzcholki();
     DodajDoListyRysowania(probka);
+    dodajElementDoListy(probka, Probka_t);
+    Lacze.Rysuj();
+}
+
+
+void Scena::dodajProbkeRegolitu(std::shared_ptr<ProbkaRegolitu> probka)
+{
+    using namespace wsp;
+    Wektor3D polozenie;
+    polozenie = probka->WezPolozenie();
+    probka->UstawPolozenie(polozenie[X],polozenie[Y],0);
+    probka->Przelicz_i_Zapisz_Wierzcholki();
     dodajElementDoListy(probka, Probka_t);
     Lacze.Rysuj();
 }
@@ -137,13 +151,10 @@ void Scena::przemiesc(double odleglosc)
 }
 
 void Scena::KontrolaKolizji() {
-    TypKolizji typ;
     std::map<int, std::shared_ptr<ObiektGeom>>::const_iterator i;
     for (i = _ObiektySceny.cbegin(); i != _ObiektySceny.cend(); ++i) {
-        typ = i->second->CzyKolizja(_AktywnyLazik);
-        switch (typ) {
-            case TK_Kolizja: _AktywnyLazik->cofnij(); break;
-        }
+        if (i->second->CzyKolizja(_AktywnyLazik) == TK_Kolizja)
+            _AktywnyLazik->cofnij();
     }
 }
 
@@ -206,7 +217,7 @@ void Scena::podniesProbke()
         np->second->informacje();
         cout << endl;
         std::static_pointer_cast<LazikSFR>(_AktywnyLazik)->dodajProbkeDoListy(std::static_pointer_cast<ProbkaRegolitu>(np->second));
-        UsunZListyRysowania(np->second);
+        //UsunZListyRysowania(np->second);
         _ObiektySceny.erase(np);
     }
     else {
@@ -215,14 +226,17 @@ void Scena::podniesProbke()
 
 }
 
-
-
-
-
-
-// Scena::Scena(const char*  sNazwaPliku_BrylaWzorcowa, const char*  sNazwaObiektu, int KolorID, double X, double Y, double Z)
-// {
-//     Inicjalizuj_Lacze();
-//     Inicjalizuj_PowierzchnieMarsa(Lacze);
-//     dodajLazik(sNazwaPliku_BrylaWzorcowa, sNazwaObiektu, KolorID, X, Y, Z);
-// }
+void Scena::zostawProbke()
+{
+    using namespace wsp;
+    std::shared_ptr<ProbkaRegolitu> probka;
+    if (_AktywnyLazik->ID() != OG_LazikSFR) {
+        cout << "Operacja dostepna tylko dla lazika SFR" << endl;
+        return;
+    }
+    probka = std::static_pointer_cast<LazikSFR>(_AktywnyLazik)->zdejmijProbke();
+    if (probka != NULL)
+        dodajProbkeRegolitu(probka);
+    else
+        cout << "Brak probek na laziku" << endl;
+}

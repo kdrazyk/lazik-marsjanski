@@ -126,6 +126,7 @@ namespace MENU {
              << "a - obroc w lewo" << endl
              << "d - obroc w prawo" << endl
              << "p - podejmij probke (tylko dla SFR)" << endl
+             << "p - zostaw probke (tylko dla SFR)" << endl
              << "k - koniec dzialania programu" << endl << endl;
 
         Wektor3D::iloscObiektow();
@@ -158,6 +159,7 @@ namespace MENU {
             case 'a': scena.obroc(-1);             break;
             case 'd': scena.obroc(1);              break;
             case 'p': scena.podniesProbke();       break;
+            case 'z': scena.zostawProbke();        break;
             case 'k': koniec = true;               break;
 
 

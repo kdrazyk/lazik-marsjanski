@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <memory>
-//#include <list>
+#include <list>
 #include <map>
 
 #include "Lazik.hh"
@@ -25,10 +25,12 @@ private:
     PzG::LaczeDoGNUPlota  Lacze;
     std::shared_ptr<Lazik> _AktywnyLazik;
     std::map<int, std::shared_ptr<ObiektGeom>> _ObiektySceny;
+    //std::list<int, std::shared_ptr<ObiektGeom>> _ObiektyScenyB;
     void Inicjalizuj_Lacze();
     void DodajDoListyRysowania(std::shared_ptr<ObiektGeom>  rOb);
     void UsunZListyRysowania(std::shared_ptr<ObiektGeom> Ob);
     int dodajElementDoListy(std::shared_ptr<ObiektGeom> el, Obiekt typ);
+    void dodajProbkeRegolitu(std::shared_ptr<ProbkaRegolitu> probka);
 public:
     Scena();
     void dodajLazik(const char*  sNazwaObiektu,
@@ -46,6 +48,8 @@ public:
     void ZmienKolorObiektu(std::shared_ptr<ObiektGeom> rOb, Kolory kolor);
     void KontrolaKolizji();
     void WyswietlProbki() const;
+    void zostawProbke();
+
 
     void podniesProbke();
 };

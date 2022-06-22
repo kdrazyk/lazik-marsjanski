@@ -41,10 +41,12 @@ public:
     const ObrysXY & WezObrys() const {return _Obrys;}
     const Wektor3D & WezPolozenie() const {return _Polozenie;}
     double WezSzerokosc() const {return _Skala[wsp::Y];}
+    double WezWysokosc() const {return _Skala[wsp::Z];}
     const std::string & WezNazweObiektu() const { return _NazwaObiektu; }
     const std::string & WezNazwePliku_BrylaRysowana() const { return _NazwaPliku_BrylaRysowana; }
-
+    MacierzRotacji3D & WezMacierzRotacji() {return _MacierzRotacji;}
     double odlegloscOdOsi(const shared_ptr<ObiektGeom> &obiektt) const;
+
 
     void UstawPolozenie(double X, double Y, double Z) {_Polozenie[wsp::X] = X; _Polozenie[wsp::Y] = Y; _Polozenie[wsp::Z] = Z;}
     void ZmienKolorID(Kolory kolor) { _KolorID = kolor; }

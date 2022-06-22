@@ -5,13 +5,16 @@ Lazik::Lazik(const char*  sNazwaObiektu, int KolorID):
 {
     ZmienSkale(LAZIK_SKALA_X, LAZIK_SKALA_Y, LAZIK_SKALA_Z);
     _KatOrientacji = 0;
-    _Szybkosc = 10;
+    _Szybkosc = 20;
     _OdlegloscDoPrzejechania = 0;
 }
 
 bool Lazik::obroc()
 {
     double kat;
+    const int sen = SZYBKOSC*KROK/_Szybkosc;
+
+
 
     if (abs(_KatDoObrotu) < KROK) {
         kat = _KatDoObrotu;
@@ -26,12 +29,11 @@ bool Lazik::obroc()
         _KatDoObrotu += KROK;
     }
 
-    usleep(SZYBKOSC*KROK/_Szybkosc);
-
     _KatOrientacji += kat;
     _MacierzRotacji.obrotOZ(_KatOrientacji);
     this->Przelicz_i_Zapisz_Wierzcholki();
 
+    std::this_thread::sleep_for(std::chrono::microseconds(sen));
     return _KatDoObrotu;
 }
 
@@ -39,8 +41,7 @@ bool Lazik::przemiesc()
 {
     Wektor3D kierunek;
     double odleglosc;
-
-    usleep(SZYBKOSC*KROK/_Szybkosc);
+    const int sen = SZYBKOSC*KROK/_Szybkosc;
 
     if (abs(_OdlegloscDoPrzejechania) < KROK) {
         odleglosc = _OdlegloscDoPrzejechania;
@@ -60,6 +61,7 @@ bool Lazik::przemiesc()
     _Polozenie = _Polozenie + kierunek * odleglosc;
     this->Przelicz_i_Zapisz_Wierzcholki();
 
+    std::this_thread::sleep_for(std::chrono::microseconds(sen));
     return _OdlegloscDoPrzejechania;
 }
 

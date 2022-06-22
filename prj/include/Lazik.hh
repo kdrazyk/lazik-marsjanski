@@ -1,7 +1,9 @@
 #ifndef LAZIK_HH
 #define LAZIK_HH
 
-#include <unistd.h>
+
+#include <thread>
+#include <chrono>
 #include <iostream>
 #include <cmath>
 #include "ObiektGeom.hh"
@@ -25,12 +27,12 @@ protected:
 
 public:
     Lazik(const char*  sNazwaObiektu, int KolorID);
-    bool obroc();
-    bool przemiesc();
-    void cofnij();
     void UstawOdlegloscDoPrzejechania(double odleglosc) {_OdlegloscDoPrzejechania = odleglosc;}
     void UstawKatDoObrotu(double kat) {_KatDoObrotu = kat;}
 
+    virtual bool obroc();
+    virtual bool przemiesc();
+    virtual void cofnij();
     virtual void informacje() const override;
     virtual int ID() const override {return OG_Lazik;}
     virtual TypKolizji CzyKolizja(const std::shared_ptr<Lazik> &Wsk_Lazik) const override;

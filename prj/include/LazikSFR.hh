@@ -12,9 +12,12 @@ private:
 public:
     LazikSFR(const char*  sNazwaObiektu, int KolorID);
     void dodajProbkeDoListy(std::shared_ptr<ProbkaRegolitu> probka);
+    std::shared_ptr<ProbkaRegolitu> zdejmijProbke();
     void wyswietlListeProbek() const;
+
+    virtual bool obroc() override;
+    virtual bool przemiesc() override;
 
     virtual void informacje() const override;
     virtual int ID() const override {return OG_LazikSFR;}
-//    virtual TypKolizji CzyKolizja(const std::shared_ptr<Lazik> &Wsk_Lazik) const override;
 };
